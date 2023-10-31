@@ -5,13 +5,14 @@ const app = express()
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.post('/students',(req,res)=>{
+app.post('/students',async (req,res)=>{
     // console.log(req.body);
-    const s1 = new student(req.body);
+    const s1 = await new student(req.body);
     s1.save().then(()=>{
         res.status(200).send(s1);
     })
     .catch((e)=>{
+        console.log(e);
         res.status(400).send(e);
     });
 });
